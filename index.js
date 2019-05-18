@@ -13,9 +13,9 @@ const appRoute = require('./route/appRoute');
 
 //allow cors, since server is hosted on different port
 app.use(function(req, res, next) {
-    const clientOrigin = (req.headers.origin === null || req.headers.origin === undefined) ? req.headers['Origin'] : req.headers.origin;
+    const clientIp = req.header('x-forwarded-for') || req.connection.remoteAddress;
 
-    res.setHeader('Access-Control-Allow-Origin', clientOrigin);
+    res.setHeader('Access-Control-Allow-Origin', clientIp);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.setHeader('Access-Control-Allow-Credentials', true); 
